@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
     @Id
-    private String id;
+    private String userId;
 
     @NotBlank
     private String email;
@@ -21,12 +21,12 @@ public class User {
     @NotBlank
     private Date createdAt;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
