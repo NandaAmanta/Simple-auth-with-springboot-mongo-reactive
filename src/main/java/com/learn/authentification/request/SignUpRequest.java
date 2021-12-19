@@ -1,33 +1,20 @@
-package com.learn.authentification.model;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.learn.authentification.request;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.Date;
 import javax.validation.constraints.NotBlank;
 
-@Document(collection = "user")
-public class User {
-
-    @Id
-    private String userId;
-
-    private String email;
-    private String phoneNumber;
-
+/**
+ *
+ * @author ASUS
+ */
+public class SignUpRequest {
     @NotBlank
     private String password;
-
-    @NotBlank
-    private Date createdAt;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setId(String userId) {
-        this.userId = userId;
-    }
+    
+    private String phoneNumber,email;
 
     public String getEmail() {
         return email;
@@ -43,14 +30,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
