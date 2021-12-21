@@ -12,6 +12,7 @@ import com.learn.authentification.response.Response;
  *
  * @author ASUS
  */
+
 public class Validator {
 
     public static Response validationForLoginSignUpRequest(LoginRequest loginRequest) {

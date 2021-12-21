@@ -11,6 +11,7 @@ import com.learn.authentification.repository.UserRepository;
 import com.learn.authentification.request.LoginRequest;
 import com.learn.authentification.request.SignUpRequest;
 import com.learn.authentification.response.Response;
+import com.learn.authentification.util.Generator;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -49,19 +50,24 @@ public class AuthService {
                 .onErrorReturn(new Response(false, "INTERNAL_SERVER_ERROR", "Internal Server Error", null));
     }
 
-    public Mono<Response> signUpUserByEmail(SignUpRequest req) {
+    public Flux<Response> signUpUserByEmail(SignUpRequest req) {
         User newUser = new User();
         newUser.setCreatedAt(new Date());
         newUser.setEmail(req.getEmail());
-        newUser.setId(UUID.randomUUID().toString());
+        newUser.setUserId(Generator.generateUserId());
         newUser.setPhoneNumber(req.getPhoneNumber());
-        newUser.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
+        newUser.setPassword(Generator.generatePassword(req.getPassword()));
 
         return userRepo
-                .save(newUser)
+                .findByEmail(req.getEmail())
                 .map(result -> {
-                    return new Response(true, "SUCCESS_SIGN_UP", "Success to created new user", result);
-                });
+                    return new Response(false, "EMAIL_HAS_USED", "email has used by other user", null);
+                })
+                .switchIfEmpty(userRepo
+                        .save(newUser)
+                        .map(result -> {
+                            return new Response(true, "SUCCESS_SIGN_UP", "Success to created new user", result);
+                        }));
     }
 
     public void addAuthToken(String userId) {

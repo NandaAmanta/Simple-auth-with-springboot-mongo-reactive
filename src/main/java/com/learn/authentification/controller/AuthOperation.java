@@ -23,5 +23,5 @@ public interface AuthOperation {
     Flux<Response> login(@RequestBody @Valid LoginRequest req);
 
     @PostMapping("/signup")
-    Mono<Response> signUp(@RequestBody @Valid SignUpRequest req);
+    Flux<Response> signUp(@RequestBody @Valid SignUpRequest req);
 }

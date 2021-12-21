@@ -5,17 +5,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Document(collection = "user")
 public class User {
 
-    @Id
+    @NotNull
     private String userId;
-
+    
+    @NotNull
     private String email;
+    
+    @NotNull
     private String phoneNumber;
-
-    @NotBlank
+    
+    @NotNull
     private String password;
 
     @NotBlank
@@ -25,7 +29,7 @@ public class User {
         return userId;
     }
 
-    public void setId(String userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

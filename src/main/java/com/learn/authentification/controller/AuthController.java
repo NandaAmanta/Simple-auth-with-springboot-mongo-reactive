@@ -30,10 +30,10 @@ public class AuthController implements AuthOperation {
         return authService.loginUserByEmail(req);
     }
 
-    public Mono<Response> signUp(@RequestBody @Valid SignUpRequest req) {
+    public Flux<Response> signUp(@RequestBody @Valid SignUpRequest req) {
         var resultOfValidation = Validator.validationForLoginSignUpRequest(req);
         if (!resultOfValidation.ok) {
-            return Mono.just(resultOfValidation);
+            return Flux.just(resultOfValidation);
         }
 
         return authService.signUpUserByEmail(req);
