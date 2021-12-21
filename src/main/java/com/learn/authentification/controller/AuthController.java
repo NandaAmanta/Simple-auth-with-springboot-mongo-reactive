@@ -16,15 +16,13 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController implements AuthOperation {
 
     @Autowired
     AuthService authService;
 
-    @PostMapping("/login")
     public Flux<Response> login(@RequestBody @Valid LoginRequest req) {
         var resultOfValidation = Validator.validationForLoginSignUpRequest(req);
-
         if (!resultOfValidation.ok) {
             return Flux.just(resultOfValidation);
         }
@@ -32,10 +30,8 @@ public class AuthController {
         return authService.loginUserByEmail(req);
     }
 
-    @PostMapping("/signup")
     public Mono<Response> signUp(@RequestBody @Valid SignUpRequest req) {
         var resultOfValidation = Validator.validationForLoginSignUpRequest(req);
-
         if (!resultOfValidation.ok) {
             return Mono.just(resultOfValidation);
         }
