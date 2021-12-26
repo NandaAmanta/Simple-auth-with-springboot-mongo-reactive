@@ -9,14 +9,14 @@ import javax.validation.constraints.NotNull;
 
 @Document(collection = "user")
 public class User {
-
-    @NotNull
+    
+    @Id
     private String userId;
     
-    @NotNull
+    
     private String email;
     
-    @NotNull
+    
     private String phoneNumber;
     
     @NotNull

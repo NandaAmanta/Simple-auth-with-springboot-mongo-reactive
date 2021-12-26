@@ -5,8 +5,10 @@
 package com.learn.authentification.repository;
 
 import com.learn.authentification.model.Auth;
+import com.learn.authentification.model.User;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -16,4 +18,6 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface AuthRepository extends ReactiveCrudRepository<Auth, String> {
 
+    Flux<Auth> findByToken(String token);
+    Flux<Auth> findByUserId(String userId);
 }

@@ -70,6 +70,17 @@ public class AuthService {
                         }));
     }
 
+    public Flux logOut(String token) {
+        return authRepo
+                .findByToken(token)
+                .map(mapper -> {
+                    return authRepo
+                            .delete(mapper).map(e -> {
+                        return new Response(true, "SUCCESS_LOG_OUT", "Success to Log out", null);
+                    });
+                });
+    }
+
     public void addAuthToken(String userId) {
         var localdateTomorrow = LocalDate.now().plusDays(1).atStartOfDay();
         var expired = Date.from(localdateTomorrow.toInstant(ZoneOffset.UTC));
