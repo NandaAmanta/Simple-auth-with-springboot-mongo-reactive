@@ -6,6 +6,7 @@ package com.learn.authentification.model;
 
 import java.util.Date;
 import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -15,8 +16,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "authToken")
 public class Auth {
 
-    @NotNull
-    private String userId, token;
+    @Id
+    private String userId ;
+            
+    private String token;
 
     @NotNull
     private Date expiredOn, createdAt;
