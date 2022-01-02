@@ -40,7 +40,7 @@ public class AuthService {
         return userRepo
                 .findByEmail(req.getEmail())
                 .map(result -> {
-                    if (result.getPassword().equals(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()))) {
+                    if (result.getPassword().equals(Generator.generatePassword(req.getPassword()))) {
                         addAuthToken(result.getUserId());
                         return new Response(true, "SUCCESS_LOGIN", "Wellcome ,you are log in to this acount", result);
                     }
